@@ -11,6 +11,7 @@ Algorithm::ContextVector - Simple implementation based on Data::CosineSimilarity
 =head1 SYNOPSIS
 
  my $cv = Algorithm::ContextVector->new( top => 300 );
+
  $cs->add_instance( label => 'label1', attributes => { feature1 => 3, feature2 => 1, feature3 => 10 } );
  $cs->add_instance( label => [ 'label2', 'label3' ], attributes => { ... } );
  $cs->add_instance( label => ..., attributes => ... );
@@ -24,7 +25,8 @@ Algorithm::ContextVector - Simple implementation based on Data::CosineSimilarity
 
 =head2 $class->new( top => ... )
 
-During the training, keeps the top N most heavy weighted features.
+During the training, keeps the $top most heavy weighted features.
+Keeps the complete feature set if omitted.
 
 =cut
 
@@ -42,6 +44,8 @@ sub new {
 
 =head2 $class->new_from_file( $filename )
 
+Returns the instance of Algorithm::ContextVector stored in $filename.
+
 =cut
 
 sub new_from_file {
@@ -51,6 +55,8 @@ sub new_from_file {
 }
 
 =head2 $self->save_to_file( $filename )
+
+Save the $self to $filename using Storable.
 
 =cut
 
@@ -111,6 +117,7 @@ sub _cut_features {
     my $self = shift;
     my ($features) = @_;
     my $top = $self->{top};
+    return $features unless defined $top;
 
     my @sorted =
         sort { $b->[1] <=> $a->[1] } 
@@ -124,8 +131,7 @@ sub _cut_features {
     return $r;
 }
 
-=cut
-# IDEA
+# IDEA dead code for now
 sub _cut_features_avg {
     my $features = shift; 
     my $sum = 0;
@@ -137,9 +143,10 @@ sub _cut_features_avg {
     }
     return $features;
 }
-=cut
 
 =head2 $self->train
+
+Keeps the best features (top N) and norms the vectors.
 
 =cut
 
@@ -152,6 +159,8 @@ sub train {
 }
 
 =head2 $self->predict( attributes => { ... } )
+
+Returns a hashref with the labels as the keys and the cosines as the values.
 
 =cut
 
