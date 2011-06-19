@@ -1,0 +1,24 @@
+NAME
+    Algorithm::ContextVector - Simple implementation based on Data::CosineSimilarity
+
+SYNOPSIS
+     my $cv = Algorithm::ContextVector->new( top => 300 );
+     $cs->add_instance( label => 'label1', attributes => { feature1 => 3, feature2 => 1, feature3 => 10 } );
+     $cs->add_instance( label => [ 'label2', 'label3' ], attributes => { ... } );
+     $cs->add_instance( label => ..., attributes => ... );
+     ...
+
+     $cv->train;
+
+     my $results = $cv->predict( attributes => { ... } );
+
+DESCRIPTION
+  $class->new( top => ... )
+    During the training, keeps the top N most heavy weighted features.
+
+  $class->new_from_file( $filename )
+  $self->save_to_file( $filename )
+  $self->add_instance( label => [ ... ], attributes => { ... } )
+  $self->train
+  $self->predict( attributes => { ... } )
+
