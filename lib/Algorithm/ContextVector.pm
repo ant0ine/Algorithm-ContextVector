@@ -23,6 +23,8 @@ Algorithm::ContextVector - Simple implementation based on Data::CosineSimilarity
 
 =head1 DESCRIPTION
 
+Simple implementation based on Data::CosineSimilarity
+
 =head2 $class->new( top => ... )
 
 During the training, keeps the $top most heavy weighted features.
@@ -186,5 +188,15 @@ sub predict {
     }
     return \%r;
 }
+
+=head1 AUTHOR
+
+Antoine Imbert, C<< <antoine.imbert at gmail.com> >>
+
+=head1 LICENSE AND COPYRIGHT
+
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+
+=cut
 
 1;
