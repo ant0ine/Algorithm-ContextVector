@@ -65,7 +65,7 @@ Save the $self to $filename using Storable.
 sub save_to_file {
     my $self = shift;
     my ($file) = @_;
-    store($self, $file);
+    nstore($self, $file);
 }
 
 sub _add_hashrefs {
